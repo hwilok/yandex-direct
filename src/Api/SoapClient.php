@@ -119,17 +119,17 @@ abstract class SoapClient extends \SoapClient implements ClientInterface
                     }
                 }
 
-                $this->dispatcher->dispatch(
-                    Events::FAIL_REQUEST,
-                    new FailCallEvent($methodRef, $params, $this->user, $this, $ex, $this->fetchUtits())
+                $this->dispatcher->dispatch(                   
+                    new FailCallEvent($methodRef, $params, $this->user, $this, $ex, $this->fetchUtits()),
+                    Events::FAIL_REQUEST
                 );
 
                 throw $ex;
             }
 
-            $this->dispatcher->dispatch(
-                Events::AFTER_REQUEST,
-                new PostCallEvent($methodRef, $params, $this->user, $this, $response, $this->fetchUtits())
+            $this->dispatcher->dispatch(                
+                new PostCallEvent($methodRef, $params, $this->user, $this, $response, $this->fetchUtits()),
+                Events::AFTER_REQUEST
             );
 
             return $response;
