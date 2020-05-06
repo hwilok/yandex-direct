@@ -104,8 +104,8 @@ abstract class SoapClient extends \SoapClient implements ClientInterface
 
         return $invoker(function () use ($methodRef, $method, $params) {
             $this->dispatcher->dispatch(
-                Events::BEFORE_REQUEST,
-                new PreCallEvent($methodRef, $params, $this->user)
+                new PreCallEvent($methodRef, $params, $this->user),
+                Events::BEFORE_REQUEST
             );
 
             try {
